@@ -35,7 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Basic: Omni Linear OpMode", group="Linear OpMode")
+@TeleOp(name="lm1 you guys owe me big time", group="Linear OpMode")
 public class lm1 extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
