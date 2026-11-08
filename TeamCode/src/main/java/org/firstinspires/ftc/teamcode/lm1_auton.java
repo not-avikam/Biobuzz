@@ -56,10 +56,10 @@ public class lm1_auton extends LinearOpMode {
 
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
-        frontLeftDrive = hardwareMap.get(DcMotor.class, "front_left_drive");
-        backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
+        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
+        backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
+        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
+        backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
         intake = hardwareMap.get(DcMotor.class, "intake");
         shooter = hardwareMap.get(DcMotor.class, "shooter");
         autonTimer.reset();
@@ -74,7 +74,7 @@ public class lm1_auton extends LinearOpMode {
         // when you first test your robot, push the left joystick forward and observe the direction the wheels turn.
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);

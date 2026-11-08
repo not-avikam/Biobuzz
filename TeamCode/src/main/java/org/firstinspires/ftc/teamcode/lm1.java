@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="lm1 you guys owe me big time", group="Linear OpMode")
@@ -46,18 +47,22 @@ public class lm1 extends LinearOpMode {
     private DcMotor backRightDrive = null;
     private DcMotor intake = null;
     private DcMotor shooter = null;
+    private DcMotor shooter2 = null;
+    private Servo trigger = null;
 
     @Override
     public void runOpMode() {
 
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
-        frontLeftDrive = hardwareMap.get(DcMotor.class, "front_left_drive");
-        backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
+        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
+        backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
+        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
+        backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
         intake = hardwareMap.get(DcMotor.class, "intake");
         shooter = hardwareMap.get(DcMotor.class, "shooter");
+        shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
+        trigger = hardwareMap.get(Servo.class, "trigger");
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -69,10 +74,12 @@ public class lm1 extends LinearOpMode {
         // when you first test your robot, push the left joystick forward and observe the direction the wheels turn.
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+
+        trigger.setDirection(Servo.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -143,10 +150,20 @@ public class lm1 extends LinearOpMode {
 
             if (gamepad1.left_trigger !=0) {
                 shooter.setPower(gamepad1.left_trigger);
+                shooter2.setPower(-gamepad1.left_trigger);
             } else if (gamepad1.right_trigger !=0) {
                 shooter.setPower(-gamepad1.right_trigger);
+                shooter2.setPower(gamepad1.right_trigger);
             } else {
                 shooter.setPower(0);
+            }
+
+            if (gamepad1.right_bumper) {
+                trigger.setPosition(.5);
+            } else if (gamepad1.left_bumper) {
+                trigger.setPosition(-.5);
+            } else {
+                trigger.setPosition(0);
             }
 
             // Show the elapsed game time and wheel power.
